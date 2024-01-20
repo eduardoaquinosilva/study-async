@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'header' %}
+    <link href="{% static 'users/styles/register.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/new_flashcard.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/start_challenge.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/challenge.css' %}" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+{% endblock %}
+
+{% block 'content' %}
+    {% include "partials/navbar.html" %}
+
+    <div class="container">
+        <br><br>
+        <div class="row">
+            <form action="{% url 'list_challenge' %}" method="GET">
+                <div class="col-md">
+                        <label for="">Categoria</label>
+                        <select name="category" class="form-select">
+                            <option value="">Todas as categorias</option>
+                            {% for category in categories %}
+                                <option value="{{category.id}}">{{category.name}}</option>
+                            {% endfor %}
+                        </select>
+                </div>
+                <div class="col-md">
+                    <label for="">Dificuldade</label>
+                    <select name="level" class="form-select">
+                        <option value="">Todas as dificuldades</option>
+                        {% for level in levels %}
+                            <option value="{{level.0}}">{{level.1}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md">
+                    <label for="">Status</label>
+                    <select name="status" id="" class="form-select">
+                        <option value="">Todos os status</option>
+                        {% for state in status %}
+                            <option value="{{state}}">{{state}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md">
+                    <br>
+                    <input type="submit" value="Filtrar" class="btn-cadastro">
+                </div>
+            </form>
+        </div>
+        <br><br>
+        <div class="box-listar">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Desafio</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Dificuldade</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for challenge in challenges %}
+                        <tr class="linha">
+                            <th><a href="{% url 'challenge' challenge.id %}">{{challenge.id}}</a></th>
+                            <td>{{challenge.title}}</td>
+                            <td>
+                                <div class="{{challenge.challenge_level_style}}">
+                                    {{challenge.get_level_display}}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="{{challenge.status.1}}">
+                                    {{challenge.status.0}}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="{% static 'flashcard/scripts/flashcard.js' %}"></script>
+{% endblock %}

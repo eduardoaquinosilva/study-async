@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'header' %}
+    <link href="{% static 'users/styles/register.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/new_flashcard.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/start_challenge.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block 'content' %}
+    {% include "partials/navbar.html" %}
+    
+    <div class="container ctx">
+        <br><br>
+        <h2 class="fonte-principal">Iniciar desafio</h2>
+        <p class="fonte-secundaria">Escolha as categorias e a dificuldade do desafio</p>
+        <div class="row">
+            <form action="{% url 'start_challenge' %}" method="POST"> {% csrf_token %}
+                <div class="col-md">
+                    <label for="">Titulo</label><input type="text" class="form-control" name="title">
+                </div>
+                <div class="col-md">
+                    <label>Categoria</label>
+                    <select name="category" class="form-select" multiple>
+                        {% for category in categories %}
+                            <option value="{{category.id}}">{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md">
+                    <label>Dificuldade</label>
+                    <select name="level" class="form-select">
+                        {% for level in levels %}
+                            <option value="{{level.0}}">{{level.1}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md">
+                    <label>Qtd questões</label><input type="number" class="form-control" name="quant_questions"></div>
+                </div>
+                <br><br>
+                <input type="submit" class="btn-cadastro" value="Iniciar desafio">
+            </form>
+        </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'header' %}
+    <link href="{% static 'users/styles/register.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/new_flashcard.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/start_challenge.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/challenge.css' %}" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+{% endblock %}
+
+{% block 'content' %}
+    {% include "partials/navbar.html" %}
+ 
+    <div class="container px-4">
+        <br><br>
+        <div class="row">
+            <p class="fonte-secundaria">{{challenge.title}}</p>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md">
+                <canvas id="grafico1"></canvas>
+            </div>
+            <div class="col-md">
+                <div style="background-color: white;">
+                    <canvas id="grafico2"></canvas>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- <div class="row">
+            <p class="fonte-secundaria">Melhores Matérias</p>
+        </div>
+        <div class="row row-cols-auto g-2">
+            {% for index in n %}
+                <div class="col box-form">
+                    <p>{{index}}</p>
+                    <div>
+                        <p>Acertos {{data_per_category.index}}</p>
+                        <p>Erros {{mistakes_per_category.index}}</p>
+                    </div>
+                </div>    
+            {% endfor %}
+        </div>
+        <div class="row">
+            <p class="fonte-secundaria">Piores Matérias</p>
+        </div>
+        <div class="row row-cols-auto">
+            <div class="col box-form">Ha</div>
+            <div class="col box-form">Ha</div>
+            <div class="col box-form">Ha</div>
+        </div>
+    </div> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'flashcard/scripts/charts.js' %}" defer data-successes="{{ data.0 }}" data-mistakes="{{ data.1 }}" data-data-per-category="{{ data_per_category }}" data-categories="{{ categories|safe }}"></script>
+{% endblock %}

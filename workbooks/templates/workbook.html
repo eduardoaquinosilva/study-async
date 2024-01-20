@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'header' %}
+    <link href="{% static 'users/styles/register.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/new_flashcard.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/start_challenge.css' %}" rel="stylesheet">
+    <link href="{% static 'flashcard/styles/challenge.css' %}" rel="stylesheet">
+    <link href="{% static 'workbooks/styles/add_workbooks.css' %}" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+{% endblock %}
+
+{% block 'content' %}
+    {% include "partials/navbar.html" %}
+    <div class="container">
+        <br><br>
+        <div class="row">
+            <div class="col-md">
+                <a href="{{workbook.file.url}}">
+                    <div style="width: 100%;" id="pdf-container"></div>
+                </a>
+            </div>
+            <div class="col-md">
+                <p>Views únicas: {{unique_views}}</p>
+                <p>Views totais: {{total_views}}</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="{% static 'workbooks/scripts/pdfPreview.js' %}" defer data-file-url="{{workbook.file.url}}"></script>
+{% endblock %}
